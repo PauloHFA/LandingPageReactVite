@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X, User } from 'lucide-react';
+import { ShoppingBag, Menu, X, User, ShoppingCart } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { cart, toggleCart } = useCart();
 
   return (
     <nav className="bg-white fixed w-full z-50 shadow-sm">
@@ -27,6 +29,17 @@ const Navbar = () => {
             <Link to="/about" className="text-gray-700 hover:text-pink-600 transition-colors">
               Sobre Nós
             </Link>
+            <button
+              onClick={toggleCart}
+              className="relative text-gray-700 hover:text-pink-600 transition-colors"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </button>
             <Link 
               to="/login" 
               className="flex items-center space-x-1 px-4 py-2 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors"
@@ -37,7 +50,18 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center space-x-4">
+            <button
+              onClick={toggleCart}
+              className="relative text-gray-700 hover:text-pink-600 focus:outline-none"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-gray-700 hover:text-pink-600 focus:outline-none"

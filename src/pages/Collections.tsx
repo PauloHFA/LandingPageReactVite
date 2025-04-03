@@ -1,7 +1,10 @@
 import React from 'react';
 import { ShoppingBag } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 function Collections() {
+  const { addToCart } = useCart();
+
   const collections = [
     {
       name: "Coleção Outono",
@@ -65,7 +68,10 @@ function Collections() {
                       className="w-full h-96 object-cover"
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-opacity flex items-center justify-center">
-                      <button className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all px-6 py-3 bg-white text-black rounded-full flex items-center gap-2">
+                      <button 
+                        onClick={() => addToCart(item)}
+                        className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all px-6 py-3 bg-white text-black rounded-full flex items-center gap-2"
+                      >
                         <ShoppingBag className="w-5 h-5" />
                         Adicionar ao Carrinho
                       </button>
